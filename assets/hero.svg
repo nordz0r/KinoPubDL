@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">MetaKeep — Metadata, kept.</title>
+  <desc id="desc">A bright file-preservation mark with a protected document and the MetaKeep wordmark.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#14243a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#65e6d0"/>
+      <stop offset="1" stop-color="#75a7ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="320" rx="28" fill="url(#bg)"/>
+  <circle cx="1030" cy="-20" r="240" fill="#75a7ff" opacity=".08"/>
+  <circle cx="1100" cy="290" r="180" fill="#65e6d0" opacity=".07"/>
+  <g transform="translate(86 69)">
+    <path d="M30 8h103l48 48v120a16 16 0 0 1-16 16H30a16 16 0 0 1-16-16V24A16 16 0 0 1 30 8Z" fill="#17283e" stroke="url(#accent)" stroke-width="4"/>
+    <path d="M132 10v44h45" fill="none" stroke="url(#accent)" stroke-width="4"/>
+    <path d="M55 88h76M55 113h63M55 138h41" stroke="#b9c9dc" stroke-width="8" stroke-linecap="round" opacity=".85"/>
+    <path d="m157 133 19 8v18c0 16-11 26-19 30-8-4-19-14-19-30v-18l19-8Z" fill="url(#accent)"/>
+    <path d="m149 158 6 6 11-13" fill="none" stroke="#0b1220" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="330" y="143" fill="#f3f7fc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="62" font-weight="750" letter-spacing="-2">MetaKeep</text>
+  <text x="334" y="195" fill="#a8bbd1" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="24" font-weight="450">Metadata, kept through the workflow.</text>
+  <text x="334" y="238" fill="#65e6d0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" letter-spacing="2">COPY  ·  DOWNLOAD  ·  CONVERT  ·  VERIFY</text>
+</svg>
