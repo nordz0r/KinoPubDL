@@ -1,15 +1,14 @@
-# Security Policy
+# Безопасность
 
-## Supported versions
+KinoPubDL — клиентская оболочка для yt-dlp и ffmpeg. Скачивание Kino.Pub требует действующей авторизации и доступа к видео; приложение не выдаёт аккаунт, подписку и не обходит платный доступ или DRM.
 
-Security fixes are provided for the latest release. Please update before reporting a vulnerability.
+- Логин и пароль вводятся только на сайте в браузере. Выбранные cookies читает yt-dlp; приложение не экспортирует их в файл и не прикладывает к CI или артефактам.
+- Не публикуйте cookie-файлы, токены, приватные ссылки или журналы с секретами в issues. Скриншоты очищайте от локальных адресов и личных путей.
+- Плагин yt-dlp-kinopub — отдельный сторонний компонент, выполняемый с вашими правами. Проверяйте источник установки.
+- Full Disk Access и доступ к Связке ключей — широкие разрешения macOS. Давайте их только доверенной установленной копии приложения.
+- Передача в VLC идёт по локальной сети, обычно по незашифрованному HTTP. Используйте доверенную сеть и проверяйте найденное устройство. Приложение разрешает upload только на тот же origin, что у страницы VLC.
+- Опция удаления исходника выключена по умолчанию. При включении исходник перемещается в Корзину только после проверки новой H.265-копии; восстановление и очистка Корзины выполняются вручную.
+- GitHub Actions тестирует локальные синтетические видео и mock-ответы. Для CI не нужны аккаунт Kino.Pub, cookies, доступ к локальной сети или iPad.
+- Сборки ad-hoc подписаны для проверки целостности; они не notarized Apple и не имеют Developer ID. Загружайте артефакты из доверенного запуска workflow, сверяйте SHA-256 и исходный коммит.
 
-## Reporting a vulnerability
-
-Do not open a public issue for an exploitable vulnerability. Use GitHub's private vulnerability reporting for this repository, or contact the maintainer through the email listed on their GitHub profile. Include the affected version, platform, reproduction steps, and expected impact. Do not attach private files or metadata samples unless they have been sanitized.
-
-## Handling metadata safely
-
-MetaKeep writes metadata sidecars with owner-only permissions where the platform supports them. Sidecars can contain extended-attribute values, filesystem ownership, timestamps, embedded tags (which may include GPS coordinates), HTTP response headers, and source names. The full URL is omitted by default; `--record-url` can store paths and query parameters and should be used only when they contain no credentials or tokens.
-
-Conversion commands are executed without a shell, but the selected converter is an external program and runs with the current user's permissions. Only run converters and process files you trust. Metadata restoration may change permissions, timestamps, ACLs, and extended attributes; review a manifest before restoring data from an untrusted source.
+Проблемы, содержащие секреты, не публикуйте в открытых issues. Сообщайте об уязвимостях без рабочих токенов и персональных данных.

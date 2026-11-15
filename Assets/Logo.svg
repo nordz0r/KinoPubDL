@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-label="KinoPub: киноплёнка в форме буквы K">
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#2C7C70"/>
+      <stop offset="1" stop-color="#153F43"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="16" stdDeviation="13" flood-color="#0A282C" flood-opacity=".28"/>
+    </filter>
+  </defs>
+  <rect x="64" y="64" width="896" height="896" rx="200" fill="url(#tile)" stroke="#C9F0DB" stroke-opacity=".22" stroke-width="2" filter="url(#shadow)"/>
+  <g transform="translate(0 1024) scale(1 -1)" fill="#F4F6EE">
+    <path d="M377 507 646 762 746 762 746 681 474 423Z"/>
+    <path d="M386 547 488 547 760 286 760 246 630 246 386 481Z"/>
+    <rect x="274" y="246" width="132" height="516" rx="25"/>
+    <g fill="#1C554F">
+      <rect x="313" y="282" width="54" height="30" rx="6"/>
+      <rect x="313" y="366" width="54" height="30" rx="6"/>
+      <rect x="313" y="450" width="54" height="30" rx="6"/>
+      <rect x="313" y="534" width="54" height="30" rx="6"/>
+      <rect x="313" y="618" width="54" height="30" rx="6"/>
+    </g>
+    <rect x="313" y="702" width="54" height="30" rx="6" fill="#F3B65A"/>
+  </g>
+</svg>
