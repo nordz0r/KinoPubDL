@@ -1,27 +1,88 @@
-name: CI
+name: Build KinoPubDL
 
 on:
   push:
+    branches: [main]
+    tags: ["v*"]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: macos-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
-    name: Python ${{ matrix.python-version }} · ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+  build:
+    name: macOS · ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        include:
+          - runner: macos-15
+            arch: arm64
+          - runner: macos-15-intel
+            arch: x86_64
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      HOMEBREW_NO_INSTALL_CLEANUP: "1"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          python-version: ${{ matrix.python-version }}
-      - name: Run unit tests
-        run: python -m unittest discover -s tests -v
-      - name: Check CLI entry point
-        run: python -m metakeep --help
+          persist-credentials: false
+
+      - name: Check runner and Swift toolchain
+        env:
+          EXPECTED_ARCH: ${{ matrix.arch }}
+        run: |
+          test "$(uname -m)" = "$EXPECTED_ARCH"
+          sw_vers
+          swift --version
+          xcodebuild -version
+
+      - name: Install integration-test tools
+        run: brew install ffmpeg yt-dlp
+
+      - name: Check shell syntax
+        run: bash -n build_app.sh Tests/run_tests.sh Tests/run_queue_tests.sh
+
+      - name: Run model, cookies, progress and cleanup tests
+        run: bash Tests/run_tests.sh
+
+      - name: Test replenishable queue and browser isolation
+        run: bash Tests/run_queue_tests.sh
+
+      - name: Run offline yt-dlp and ffmpeg integration tests
+        run: bash Tests/run_tests.sh --pipeline-smoke
+
+      - name: Build and verify app
+        run: |
+          bash build_app.sh
+          plutil -lint KinoPubDL.app/Contents/Info.plist
+          codesign --verify --deep --strict KinoPubDL.app
+          file KinoPubDL.app/Contents/MacOS/KinoPubDL
+
+      - name: Package app
+        env:
+          BUILD_ARCH: ${{ matrix.arch }}
+        run: |
+          mkdir -p dist
+          archive="KinoPubDL-macos-${BUILD_ARCH}.zip"
+          ditto -c -k --sequesterRsrc --keepParent KinoPubDL.app "dist/$archive"
+          cd dist
+          shasum -a 256 "$archive" > "$archive.sha256"
+
+      - name: Upload app archive and checksum
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: KinoPubDL-macos-${{ matrix.arch }}
+          path: |
+            dist/KinoPubDL-macos-${{ matrix.arch }}.zip
+            dist/KinoPubDL-macos-${{ matrix.arch }}.zip.sha256
+          if-no-files-found: error
+          retention-days: 14

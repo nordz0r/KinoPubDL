@@ -1,5 +1,0 @@
-include CHANGELOG.md
-include README.en.md
-include SECURITY.md
-recursive-include assets *.svg
-recursive-include .github/workflows *.yml

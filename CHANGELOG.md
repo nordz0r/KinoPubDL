@@ -1,10 +1,12 @@
-# Changelog
+# Изменения
 
-## 0.1.0 — 2026-11-15
+## 0.3.1 — KinoPubDL
 
-- Add `copy`, `download`, `convert`, `inspect`, `verify`, and `restore` commands.
-- Store checksummed metadata manifests beside outputs.
-- Preserve filesystem mode, timestamps, extended attributes, and available POSIX ACLs.
-- Record HTTP provenance and Last-Modified on downloads.
-- Transfer supported embedded tags through optional ExifTool during conversion.
-- Add unit tests and macOS/Linux CI.
+- Нативное SwiftUI-приложение macOS для скачивания с Kino.Pub через авторизацию браузера.
+- Выбор качества, озвучки и эпизодов, пополняемая последовательная очередь.
+- Safari, Chrome, Firefox, Edge, Brave, Chromium, Opera и Vivaldi; проверка входа без скачивания.
+- Опциональное H.265-кодирование с прогрессом и проверкой копии; безопасное удаление исходника в Корзину.
+- Передача в VLC на iPad, обнаружение в локальной сети и выбор готовых файлов с диска.
+- GitHub Actions: Apple Silicon и Intel, тесты без cookies и подписки, ZIP приложения и SHA-256.
+
+Старый MetaKeep удалён из текущей версии по решению владельца. Его исходники доступны в истории Git до перехода к Swift-приложению. История репозитория не переписывалась.
